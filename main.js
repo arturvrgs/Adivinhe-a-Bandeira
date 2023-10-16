@@ -1,22 +1,14 @@
 let botaoPais = document.querySelectorAll('.botao__escolha')
 let imgPais = document.getElementById("foto");
+let pontosTexto = document.getElementById("pontos")
+let proxima = document.getElementById('next')
 class Jogador {
     constructor() {
-        this.acertos = 0;
-        this.erros = 0;
-        this.pontuacao = 0;
+        this.acertos = 0;       
     }
 
     acerto() {
         this.acertos++
-    }
-
-    erro() {
-        this.erros++
-    }
-
-    getPontuacao() {
-       return this.acertos;
     }
 }
 
@@ -41,10 +33,20 @@ let pergunta9 = new Pergunta("Noruega", "Irlanda", "Canadá", "México");
 let pergunta10 = new Pergunta("Somália", "China", "Coreia do Sul", "Japão");
 let pergunta11 = new Pergunta("Afeganistão", "Espanha", "Inglaterra", "Colombia");
 let pergunta12 = new Pergunta("Coreia do Norte", "Hong Kong", "Nepal", "Nova Zelândia");
-let pergunta13 = new Pergunta("Índia", "Venezuela", "Singapura", "País de Gales");
+let pergunta13 = new Pergunta("Índia", "Venezuela", "Cingapura", "País de Gales");
+let pergunta14 = new Pergunta("Egito", "Suécia", "Alemanha", "Austrália");
+let pergunta16 = new Pergunta("China", "Tailândia", "Brasil", "Dinamarca");
+let pergunta17 = new Pergunta("Chile", "Holanda", "Singapura", "Malásia");
+let pergunta18 = new Pergunta("Suíça", "Inglaterra", "Nigéria", "Costa Rica");
+let pergunta19 = new Pergunta("Polônia", "Ucrânia", "Vietnã", "Bélgica");
+let pergunta20 = new Pergunta("Turquia", "Croácia", "Filipinas", "Hungria");
+let pergunta21 = new Pergunta("Israel", "Colômbia", "Nova Zêlandia", "Estados Unidos");
 
 let listaPerguntas = [pergunta1, pergunta2, pergunta3, pergunta4, pergunta5,
-                    pergunta6, pergunta7, pergunta8, pergunta9, pergunta10, pergunta11, pergunta12, pergunta13];
+    pergunta6, pergunta7, pergunta8, pergunta9, pergunta10, 
+    pergunta11, pergunta12, pergunta13, 
+    pergunta16, pergunta17, pergunta18, pergunta19, pergunta20,
+    pergunta21];
 
 let embaralhar = (arr = []) => {
     let arrayLenght = arr.length;
@@ -162,13 +164,110 @@ function Perguntas() {
                     botaoPais[3].innerHTML = arrayFinal[0].bandeira3;
 
                     break;
+                case "Austrália":
+                    imgPais.src = "australia.png";
+                    botaoPais[0].innerHTML = arrayFinal[0].bandeiraCerta;
+                    botaoPais[1].innerHTML = arrayFinal[0].bandeira1;
+                    botaoPais[2].innerHTML = arrayFinal[0].bandeira2;
+                    botaoPais[3].innerHTML = arrayFinal[0].bandeira3;
+                    break;
+            
+                case "Argentina":
+                imgPais.src = "argentina.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeiraCerta;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeira1;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeira2;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeira3;
+                case "Dinamarca":
+                imgPais.src = "denmark.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeiraCerta;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeira1;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeira2;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeira3;
+                break;
+                case "Malásia":
+                imgPais.src = "malaysia.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeira1;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeiraCerta;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeira3;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeira2;
+                break;
+                case "Costa Rica":
+                imgPais.src = "costa-rica.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeira3;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeira2;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeira1;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeiraCerta;
+                break;
+                case "Bélgica":
+                imgPais.src = "belgium.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeira2;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeiraCerta;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeira3;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeira1;
+
+                break;
+                case "Hungria":
+                imgPais.src = "hungary.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeira2;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeira3;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeiraCerta;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeira1;
+
+                break;
+                case "Estados Unidos":
+                imgPais.src = "united-states.png";
+                botaoPais[0].innerHTML = arrayFinal[0].bandeira1;
+                botaoPais[1].innerHTML = arrayFinal[0].bandeiraCerta;
+                botaoPais[2].innerHTML = arrayFinal[0].bandeira3;
+                botaoPais[3].innerHTML = arrayFinal[0].bandeira2;
+
+                break;
         }   
 }
+let jogador = new Jogador();
+function inicializarPontuacao() {
+    const pontuacaoArmazenada = localStorage.getItem('pontuacao');
 
+    if (pontuacaoArmazenada) {
+        jogador.acertos = parseInt(pontuacaoArmazenada);
+        pontosTexto.innerHTML = `Pontuação: ${jogador.acertos}`;
+    }
+}
+
+window.addEventListener('load', inicializarPontuacao);
+
+botaoPais.forEach(e => {
+    
+    e.addEventListener("click", evento => {
+        
+        proxima.style.display = "flex"
+
+        if (e.innerHTML == arrayFinal[0].bandeiraCerta) {
+            e.style.backgroundColor = "darkgreen";
+        
+            botaoPais.forEach(botao => {
+                botao.setAttribute('disabled', '');
+            });
+        
+            jogador.acertos++;
+            pontosTexto.innerHTML = `Pontuação: ${jogador.acertos}`;
+        
+            localStorage.setItem('pontuacao', jogador.acertos);
+        }
+         else {
+            e.style.backgroundColor = "darkred"
+           
+            botaoPais.forEach(botao => {
+                botao.setAttribute('disabled', '');
+            })
+            
+        }
+    })
+})
 
 document.addEventListener("DOMContentLoaded", function () {
     Perguntas();
-    
 });
 
 
