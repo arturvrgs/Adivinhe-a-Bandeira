@@ -226,6 +226,7 @@ function Perguntas() {
         }   
 }
 let jogador = new Jogador();
+
 function inicializarPontuacao() {
     const pontuacaoArmazenada = localStorage.getItem('pontuacao');
 
@@ -234,8 +235,6 @@ function inicializarPontuacao() {
         pontosTexto.innerHTML = `Pontuação: ${jogador.acertos}`;
     }
 }
-
-window.addEventListener('load', inicializarPontuacao);
 
 botaoPais.forEach(e => {
     
@@ -267,6 +266,7 @@ botaoPais.forEach(e => {
 })
 
 document.addEventListener("DOMContentLoaded", function () {
+    inicializarPontuacao()
     Perguntas();
 });
 
